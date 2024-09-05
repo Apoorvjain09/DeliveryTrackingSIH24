@@ -2,12 +2,9 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import {
-  ClerkProvider,
-  SignInButton,
-  SignedIn,
-  SignedOut,
-  UserButton
-} from '@clerk/nextjs'
+  ClerkProvider
+} from '@clerk/nextjs';
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -23,9 +20,20 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <body className={inter.className}>{children}</body>
+        <body className={inter.className}>
+          {children}
+
+          {/* ChatGPT logo in the bottom-right corner */}
+          <div className="chatgpt-logo-container">
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/4616/4616304.png" // Make sure the path to the image is correct
+              alt="ChatGPT Logo"
+              className="chatgpt-logo animate-bounce"
+            />
+          </div>
+
+        </body>
       </html>
     </ClerkProvider>
-
   );
 }

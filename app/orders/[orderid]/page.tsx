@@ -42,13 +42,13 @@ const OrderPage = () => {
                 {
                     orderId: "1234",
                     productName: "Iphone 13 Pro",
-                    location: "Delhi, Dwarka Sec-10",
+                    location: "Rajasthan, pincode-302001 Jaipur",
                     deliveryTime: "10:00",
                 },
                 {
                     orderId: "5678",
-                    productName: "Hp Laptop i6",
-                    location: "Delhi, Shivaji Stadium",
+                    productName: "HP Laptop i6",
+                    location: "Delhi, pincode-110001 Connaught Place",
                     deliveryTime: "23:00",
                 },
             ];
@@ -99,7 +99,7 @@ const OrderPage = () => {
             <div className="p-4 flex flex-row justify-center gap-4 ">
                 <div className="w-[50%]">
                     {orderDetails ? (
-                        <div className="p-6 rounded-lg">
+                        <div className="p-6 rounded-lg border border-black shadow-3xl">
                             <h1 className="text-2xl font-bold mb-4">Order Details</h1>
                             <p className="mb-2">
                                 <span className="font-semibold">Product Name:</span>{" "}
@@ -119,7 +119,7 @@ const OrderPage = () => {
                     )}
 
                     {/* Modify delivery time */}
-                    <div className="mt-6">
+                    <div className="mt-6 gap-4 flex flex-col">
                         <h2 className="text-xl font-semibold mb-2">Modify Delivery Time for Tomorrow</h2>
                         <DatePicker
                             selected={newDeliveryTime}
@@ -144,7 +144,7 @@ const OrderPage = () => {
                     <img
                         src="https://images.pexels.com/photos/4246109/pexels-photo-4246109.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                         alt=""
-                        className="w-[90%]"
+                        className="w-[100%] rounded-lg shadow-2xl"
                     />
                 </div>
             </div>

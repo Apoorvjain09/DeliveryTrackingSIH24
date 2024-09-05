@@ -36,9 +36,9 @@ export default function HeroReact() {
     <>
       <div>
         <Navbar />
-        <div className="bg-black/60 h-full w-full absolute"></div>
+        {/* <div className="bg-black/60 h-full w-full absolute"></div> */}
         <div className="min-h-[calc(100vh-69px)] sm:min-h-[calc(100vh-63px)] flex items-center justify-start px-1 z-10 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: "url('/Hero.jpg')" }}>
-          <Card className="w-full max-w-md p-6 z-[100] ml-[4rem]">
+          <Card className="w-full max-w-md p-6 z-[100] sm:ml-[4rem]">
             <CardHeader className="flex justify-between border-b pb-4">
               <div className="flex items-center space-x-4">
                 <Button variant="link" className="text-black font-bold border-b-2 border-red-500">
@@ -55,12 +55,12 @@ export default function HeroReact() {
                   Mobile
                 </Button>
                 <Button variant="outline" className="flex-1">
-                  AWB
+                  IP Address
                 </Button>
                 <Button variant="outline" className="flex-1 bg-black text-white">
                   Order Id
                 </Button>
-                <Button variant="outline" className="flex-1">
+                <Button variant="outline" className="hidden sm:flex flex-1">
                   LRN
                 </Button>
               </div>

@@ -67,3 +67,23 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Styles for the ChatGPT logo */
+.chatgpt-logo-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000; /* Make sure it's on top of other elements */
+}
+
+.chatgpt-logo {
+  width: 100px; /* Adjust size as needed */
+  height: 100px;
+  cursor: pointer; /* Change the cursor to pointer to simulate a chatbot */
+  opacity: 0.7; /* Slightly transparent to look like it's part of the UI */
+  transition: opacity 0.3s ease;
+}
+
+.chatgpt-logo:hover {
+  opacity: 1; /* Fully visible on hover */
+}

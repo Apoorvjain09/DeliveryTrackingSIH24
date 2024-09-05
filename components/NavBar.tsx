@@ -1,7 +1,14 @@
 import { SignInButton, SignOutButton, useUser } from "@clerk/nextjs";
+import { useState } from "react";
 
 export default function Navbar() {
     const { isSignedIn } = useUser();
+    const [showDropdown, setShowDropdown] = useState(false);
+
+    const toggleDropdown = () => {
+        setShowDropdown(!showDropdown);
+    };
+
     return (
         <nav className="bg-white dark:bg-gray-900/70 z-[100]">
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
@@ -16,26 +23,49 @@ export default function Navbar() {
                     </svg>
                 </button>
                 <div className="hidden w-full md:block md:w-auto" id="navbar-default">
-                    <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0  dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700 items-center">
+                    <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700 items-center">
                         <li>
-                            <a href="#" className="block py-2 px-3 text-gray-500 rounded hover:text-black" aria-current="page">Home</a>
+                            <a href="/" className="block py-2 px-3 text-gray-500 rounded hover:text-black" aria-current="page">Home</a>
                         </li>
                         <li>
                             <a href="#" className="block py-2 px-3 text-gray-500 rounded hover:text-black ">About</a>
                         </li>
                         <li>
-                            <a href="#" className="block py-2 px-3 text-gray-500 rounded hover:text-black ">Live Tracking</a>
+                            <a href="/live-tracking" className="block py-2 px-3 text-gray-500 rounded hover:text-black ">Live Tracking</a>
                         </li>
                         <li>
-                            <a href="/Complaint" className="block py-2 px-3 text-gray-500 rounded hover:text-black md:p-0">Complaint</a>
+                            <a href="/Complaint" className="block py-2 px-3 text-gray-500 rounded hover:text-black md:p-0">Support</a>
                         </li>
-                        <li className="text-black bg-white p-2 rounded-lg">
-                            {isSignedIn ? <SignOutButton /> : <SignInButton />}
+                        <li className="relative">
+                            {!isSignedIn ? (
+                                <button
+                                    onClick={toggleDropdown}
+                                    className="text-black bg-white p-2 rounded-lg"
+                                >
+                                    Sign In
+                                </button>
+                            ) : (
+                                <SignOutButton />
+                            )}
+                            {/* Dropdown Menu */}
+                            {showDropdown && (
+                                <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg">
+                                    <a
+                                        className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
+                                    >
+                                        <SignInButton>Admin Login</SignInButton>
+                                    </a>
+                                    <a
+                                        className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
+                                    >
+                                        <SignInButton>User Signup</SignInButton>
+                                    </a>
+                                </div>
+                            )}
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
-
-    )
+    );
 }
