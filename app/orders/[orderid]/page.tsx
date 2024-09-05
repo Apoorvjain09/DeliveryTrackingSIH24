@@ -96,7 +96,7 @@ const OrderPage = () => {
                 <Notification type={notificationType} message={notificationMessage} />
             )}
 
-            <div className="p-4 flex flex-row justify-center gap-4">
+            <div className="p-4 flex flex-row justify-center gap-4 ">
                 <div className="w-[50%]">
                     {orderDetails ? (
                         <div className="p-6 rounded-lg">

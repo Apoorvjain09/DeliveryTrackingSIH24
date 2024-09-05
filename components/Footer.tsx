@@ -1,7 +1,7 @@
 export default function Footer() {
     return (
-        <footer className="bg-black z-[100]">
-            <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6 lg:px-8">
+        <footer className="bg-black z-[100] flex flex_row items-center justify-center" >
+            <div className=" w-[50%]px-4 py-16 sm:px-6 lg:px-8">
                 <div className="flex justify-center text-teal-600">
                     <img src="https://www.sih.gov.in/img1/logo/SIH-Logo.png" alt="" className="" />
                 </div>
@@ -100,6 +100,18 @@ export default function Footer() {
                         </a>
                     </li>
                 </ul>
+            </div>
+            <div className="text-white text-center w-[50%]">
+                <img src="https://www.indiapost.gov.in/_layouts/15/images/DOP.Portal.UILayer/Telephone%20Icon.svg" alt="Phone Icon" className="mx-auto mb-4" />
+                <p className="font-bold">Toll Free Enquiry Helpline:</p>
+                <p className="text-blue-500 font-bold text-lg">18002666868</p>
+                <p className="font-semibold">9:00 AM - 6:00 PM</p>
+                <p>(Except Sundays & Gazetted Holidays)</p>
+                <p className="font-semibold">IVRS facility is available</p>
+                <p className="font-semibold text-lg">24*7*365</p>
+                <a href="#" className="text-blue-500 underline">
+                    Register your complaint
+                </a>
             </div>
         </footer>
     )
