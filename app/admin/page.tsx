@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { UserButton } from "@clerk/nextjs";
 import data from "./script/delivery.json";
 import { Deliverypage } from "@/components/component/deliverypage";
+import 'mapbox-gl/dist/mapbox-gl.css';
 
 // Helper function to convert minutes into AM/PM format
 function convertMinutesToAmPm(minutes: number): string {
@@ -35,6 +36,7 @@ export default function Component() {
     const [nearestLocation, setNearestLocation] = useState<string | null>(null); // Nearest location from API
     const [distance, setDistance] = useState<number | null>(null); // Distance from API
     const [errorMessage, setErrorMessage] = useState<string>(""); // Error message
+    const [loading, setLoading] = useState<boolean>(false); // Loading state for button
 
     // Load orders from local storage
     useEffect(() => {
@@ -78,6 +80,7 @@ export default function Component() {
 
     // Handle address submission
     const handleAddressSubmit = async () => {
+        setLoading(true); // Start loading animation
         try {
             const response = await fetch("http://127.0.0.1:8080/process-data/", {
                 method: "POST",
@@ -101,6 +104,8 @@ export default function Component() {
         } catch (error) {
             console.error("Error sending address:", error);
             setErrorMessage("An error occurred while processing the address. Please try again.");
+        } finally {
+            setLoading(false); // Stop loading animation
         }
     };
 
@@ -151,23 +156,25 @@ export default function Component() {
 
                 {/* Display Optimal Delivery Times */}
                 <div className="mt-8">
-                    <h3 className="text-2xl font-semibold mb-4">Optimal Delivery Times</h3>
-                    <Table>
-                        <TableHeader>
-                            <TableRow>
-                                <TableHead>Location</TableHead>
-                                <TableHead>Optimal Delivery Time</TableHead>
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                            {Object.entries(optimalDeliveryTimes).map(([location, time]) => (
-                                <TableRow key={location}>
-                                    <TableCell>{location}</TableCell>
-                                    <TableCell>{convertMinutesToAmPm(time as number)}</TableCell>
+                    <h3 className="text-2xl font-semibold mb-6 text-gray-800">Optimal Delivery Times</h3>
+                    <div className="overflow-x-auto ">
+                        <Table className="min-w-full bg-white border border-gray-200 shadow-md rounded-lg ">
+                            <TableHeader>
+                                <TableRow className="bg-gray-100 border-b border-gray-200">
+                                    {/* <TableHead className="px-4 py-3 text-left text-sm font-medium text-gray-600">Location</TableHead> */}
+                                    {/* <TableHead className="px-4 py-3 text-left text-sm font-medium text-gray-600">Optimal Delivery Time</TableHead> */}
                                 </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
+                            </TableHeader>
+                            <TableBody>
+                                {Object.entries(optimalDeliveryTimes).map(([location, time]) => (
+                                    <TableRow key={location} className="border-b border-gray-200 hover:bg-gray-50">
+                                        <TableCell className="px-4 py-3 text-gray-700 font-medium">{location}</TableCell>
+                                        <TableCell className="px-4 py-3 text-gray-700">{convertMinutesToAmPm(time as number)}</TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </div>
                 </div>
 
                 {/* Display Visualization */}
@@ -187,13 +194,22 @@ export default function Component() {
                         onChange={(e) => setAddress(e.target.value)}
                         className="p-2 border border-gray-300 rounded mb-4"
                     />
-                    <button
-                        onClick={handleAddressSubmit}
-                        className="bg-blue-500 text-white px-4 py-2 rounded"
-                    >
-                        Send Address
-                    </button>
-
+                    <div className="flex flex-row gap-5 items-center justify-center">
+                        <button
+                            onClick={() => {
+                                window.location.href = "https://www.google.com/maps/dir/?api=1&origin=28.7041,77.1025&destination=28.6139,77.2090&waypoints=28.6898,77.1288|28.6430,77.2177|28.5583,77.1901|28.6296,77.2086|28.5245,77.1855|28.4744,77.0793|28.4595,77.0266|28.4501,77.0293";
+                            }}
+                            className="bg-blue-500 text-white px-4 py-2 rounded"
+                        >
+                            Shortest Route
+                        </button>
+                        <button
+                            onClick={handleAddressSubmit}
+                            className="bg-blue-500 text-white px-4 py-2 rounded"
+                        >
+                            Nearest Address
+                        </button>
+                    </div>
                     {/* Display nearest location and distance */}
                     {nearestLocation && distance !== null && (
                         <div className="mt-4 p-4 border border-gray-300 rounded">
