@@ -28,7 +28,7 @@ export default function Navbar() {
                             <a href="/" className="block py-2 px-3 text-gray-500 rounded hover:text-black" aria-current="page">Home</a>
                         </li>
                         <li>
-                            <a href="#" className="block py-2 px-3 text-gray-500 rounded hover:text-black ">About</a>
+                            <a href="https://drive.google.com/file/d/1EixJvOh9esOE9cfVDfGGKy2dOREiSWxK/view?usp=sharing" className="block py-2 px-3 text-gray-500 rounded hover:text-black ">About</a>
                         </li>
                         <li>
                             <a href="/live-tracking" className="block py-2 px-3 text-gray-500 rounded hover:text-black ">Live Tracking</a>

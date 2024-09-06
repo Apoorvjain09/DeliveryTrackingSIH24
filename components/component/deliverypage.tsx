@@ -23,7 +23,16 @@ import { Button } from "@/components/ui/button"
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table"
 import { Badge } from "@/components/ui/badge"
 import { ResponsiveLine } from "@nivo/line"
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
+
+interface Complaint {
+  name: string;
+  email: string;
+  mobile: string;
+  orderId: string;
+  complaint: string;
+}
+
 interface Order {
   orderId: string;
   productName: string;
@@ -61,6 +70,15 @@ export function Deliverypage() {
       setOrders(storedOrders);
     }
   }, []);
+
+  const [complaints, setComplaints] = useState<Complaint[]>([]);
+
+  useEffect(() => {
+    // Load complaints from local storage using the correct key
+    const storedComplaints: Complaint[] = JSON.parse(localStorage.getItem("formData") || "[]");
+    setComplaints(storedComplaints);
+  }, []);
+
 
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">
@@ -245,18 +263,40 @@ export function Deliverypage() {
           </section>
           <section>
             <Card>
-              <CardHeader className="flex flex-row items-center justify-between pb-2">
-                <CardTitle className="text-sm font-medium">Delivery Performance</CardTitle>
-                <div className="flex items-center gap-2">
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button variant="outline" size="sm" className="h-7 gap-1 text-sm">
-                        <CalendarIcon className="h-3.5 w-3.5" />
-                      </Button>
-                    </DropdownMenuTrigger>
-                  </DropdownMenu>
-                </div>
-              </CardHeader>
+              <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
+                <h2 className="text-3xl font-bold text-gray-900 mb-4">Complaints Dashboard</h2>
+
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Name</TableHead>
+                      <TableHead>Email</TableHead>
+                      <TableHead>Mobile</TableHead>
+                      <TableHead>Order ID</TableHead>
+                      <TableHead>Complaint</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {complaints.length > 0 ? (
+                      complaints.map((complaint, index) => (
+                        <TableRow key={index}>
+                          <TableCell>{complaint.name}</TableCell>
+                          <TableCell>{complaint.email}</TableCell>
+                          <TableCell>{complaint.mobile}</TableCell>
+                          <TableCell>{complaint.orderId}</TableCell>
+                          <TableCell>{complaint.complaint}</TableCell>
+                        </TableRow>
+                      ))
+                    ) : (
+                      <TableRow>
+                        <TableCell colSpan={5} className="text-center">
+                          No complaints found.
+                        </TableCell>
+                      </TableRow>
+                    )}
+                  </TableBody>
+                </Table>
+              </div>
             </Card>
           </section>
         </div>

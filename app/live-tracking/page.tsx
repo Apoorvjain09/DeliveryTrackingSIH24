@@ -17,6 +17,9 @@ const center = {
 const HeroReact: React.FC = () => {
     const [startLocation, setStartLocation] = useState<string>(""); // Start Location
     const [endLocation, setEndLocation] = useState<string>(""); // End Location
+    const [address, setAddress] = useState<string>(""); // Address input for the POST request
+    const [nearestLocation, setNearestLocation] = useState<string | null>(null); // Nearest location from API
+    const [distance, setDistance] = useState<number | null>(null); // Distance from API
     const [directionsResponse, setDirectionsResponse] = useState<google.maps.DirectionsResult | null>(null);
     const [errorMessage, setErrorMessage] = useState<string>("");
 
@@ -51,6 +54,31 @@ const HeroReact: React.FC = () => {
         }
     };
 
+    const handleAddressSubmit = async () => {
+        try {
+            const response = await fetch("http://127.0.0.1:8080/process-data/", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ address }),
+            });
+
+            if (!response.ok) {
+                throw new Error("Failed to send the address.");
+            }
+
+            const data = await response.json();
+            console.log("Response from server:", data);
+
+            // Update state with the nearest location and distance from API response
+            setNearestLocation(data.nearest_location.location);
+            setDistance(data.nearest_location.distance_km);
+        } catch (error) {
+            console.error("Error sending address:", error);
+        }
+    };
+
     return (
         <>
             <Navbar />
@@ -69,6 +97,32 @@ const HeroReact: React.FC = () => {
                         </GoogleMap>
                     </LoadScript>
                 </div>
+
+                {/* Input for address and submit button */}
+                <div className="mt-8 flex flex-col items-center mt-36">
+                    <input
+                        type="text"
+                        placeholder="Enter address"
+                        value={address}
+                        onChange={(e) => setAddress(e.target.value)}
+                        className="p-2 border border-gray-300 rounded mb-4"
+                    />
+                    <button
+                        onClick={handleAddressSubmit}
+                        className="bg-blue-500 text-white px-4 py-2 rounded"
+                    >
+                        Send Address
+                    </button>
+
+                    {/* Display the nearest location and distance */}
+                    {nearestLocation && distance !== null && (
+                        <div className="mt-4 p-4 border border-gray-300 rounded">
+                            <p>Nearest Location: {nearestLocation}</p>
+                            <p>Distance: {distance.toFixed(2)} km</p>
+                        </div>
+                    )}
+                </div>
+
             </div >
             <Footer />
         </>

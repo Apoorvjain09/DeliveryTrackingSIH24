@@ -10,8 +10,10 @@ export function Form() {
   const [complaint, setComplaint] = useState<string>("");
   const [success, setSuccess] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
+  const [open, setopen] = useState(false)
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    setopen(!open)
     e.preventDefault();
     if (!name) {
       setError("Name is required");
@@ -62,17 +64,19 @@ export function Form() {
   return (
     <div className="flex h-screen w-full items-center justify-center bg-gray-100 my-10 px-4 md:px-0">
       <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-md">
-        <div className="mb-6">
-          <h1 className="text-2xl mb-2 font-bold text-gray-800 border-b-2 border-gray-400 pb-2">
-            Submit your<span className="text-red-600"> Feedback</span>
-          </h1>
-          <p className="text-gray-600">
-            We're here to help resolve your issue. Please fill out the form below.
-          </p>
-        </div>
+        {!open && (
+          <div className="mb-6">
+            <h1 className="text-2xl mb-2 font-bold text-gray-800 border-b-2 border-gray-400 pb-2">
+              Submit your<span className="text-red-600"> Feedback</span>
+            </h1>
+            <p className="text-gray-600">
+              We're here to help resolve your issue. Please fill out the form below.
+            </p>
+          </div>
+        )}
         {success ? (
           <div className="space-y-4">
-            <h2 className="text-2xl font-bold">Thank you!</h2>
+            <h2 className="text-2xl font-bold text-green-500">Thank you!</h2>
             <p>We have received your complaint and will look into it as soon as possible.</p>
           </div>
         ) : (
