@@ -8,7 +8,6 @@ import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@
 import { useEffect, useState } from "react";
 import { UserButton } from "@clerk/nextjs";
 import data from "./script/delivery.json";
-import { LineChartComponent } from "@/components/component/LineChart";
 import { Deliverypage } from "@/components/component/deliverypage";
 
 // Helper function to convert minutes into AM/PM format
@@ -32,6 +31,10 @@ export default function Component() {
     const [orders, setOrders] = useState<Order[]>([]);
     const [optimalDeliveryTimes, setOptimalDeliveryTimes] = useState<any>({});
     const [visualization, setVisualization] = useState<string | null>(null);
+    const [address, setAddress] = useState<string>(""); // State for address input
+    const [nearestLocation, setNearestLocation] = useState<string | null>(null); // Nearest location from API
+    const [distance, setDistance] = useState<number | null>(null); // Distance from API
+    const [errorMessage, setErrorMessage] = useState<string>(""); // Error message
 
     // Load orders from local storage
     useEffect(() => {
@@ -73,6 +76,34 @@ export default function Component() {
         fetchData();
     }, []);
 
+    // Handle address submission
+    const handleAddressSubmit = async () => {
+        try {
+            const response = await fetch("http://127.0.0.1:8080/process-data/", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ address }),
+            });
+
+            if (!response.ok) {
+                throw new Error("Failed to send the address.");
+            }
+
+            const data = await response.json();
+            console.log("Response from server:", data);
+            
+            // Update state with the nearest location and distance from API response
+            setNearestLocation(data.nearest_location.location);
+            setDistance(data.nearest_location.distance_km);
+            setErrorMessage(""); // Clear any previous errors
+        } catch (error) {
+            console.error("Error sending address:", error);
+            setErrorMessage("An error occurred while processing the address. Please try again.");
+        }
+    };
+
     return (
         <div className="flex flex-col min-h-screen bg-background">
             <header className="bg-background border-b px-4 py-3 sm:px-6 flex items-center justify-between">
@@ -111,41 +142,75 @@ export default function Component() {
 
             <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
                 <div className="mx-auto max-w-3xl text-center">
-                    <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">Worlds Fastest Delivery Tracking System</h2>
+                    <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">World's Fastest Delivery Tracking System</h2>
 
                     <p className="mt-4 text-gray-500 sm:text-xl">
-                        a purchase order that allows a customer to request certain products and quantities from a company for delivery. Categories.
+                        A purchase order that allows a customer to request certain products and quantities from a company for delivery.
                     </p>
                 </div>
 
-                <dl className="mt-6 grid grid-cols-1 gap-4 sm:mt-8 sm:grid-cols-2 lg:grid-cols-4">
-                    <div className="flex flex-col rounded-lg border border-gray-100 px-4 py-8 text-center">
-                        <dt className="order-last text-lg font-medium text-gray-500">Total Delivery</dt>
+                {/* Display Optimal Delivery Times */}
+                <div className="mt-8">
+                    <h3 className="text-2xl font-semibold mb-4">Optimal Delivery Times</h3>
+                    <Table>
+                        <TableHeader>
+                            <TableRow>
+                                <TableHead>Location</TableHead>
+                                <TableHead>Optimal Delivery Time</TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            {Object.entries(optimalDeliveryTimes).map(([location, time]) => (
+                                <TableRow key={location}>
+                                    <TableCell>{location}</TableCell>
+                                    <TableCell>{convertMinutesToAmPm(time as number)}</TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </div>
 
-                        <dd className="text-4xl font-extrabold text-blue-600 md:text-5xl">480+</dd>
+                {/* Display Visualization */}
+                {visualization && (
+                    <div className="mt-8">
+                        <h3 className="text-2xl font-semibold mb-4">Delivery Visualization</h3>
+                        <img src={visualization} alt="Delivery Data Visualization" className="max-w-full h-auto" />
                     </div>
+                )}
 
-                    <div className="flex flex-col rounded-lg border border-gray-100 px-4 py-8 text-center">
-                        <dt className="order-last text-lg font-medium text-gray-500">Official Addons</dt>
+                {/* Address Input and Submit */}
+                <div className="mt-8 flex flex-col items-center">
+                    <input
+                        type="text"
+                        placeholder="Enter address"
+                        value={address}
+                        onChange={(e) => setAddress(e.target.value)}
+                        className="p-2 border border-gray-300 rounded mb-4"
+                    />
+                    <button
+                        onClick={handleAddressSubmit}
+                        className="bg-blue-500 text-white px-4 py-2 rounded"
+                    >
+                        Send Address
+                    </button>
 
-                        <dd className="text-4xl font-extrabold text-blue-600 md:text-5xl">24</dd>
-                    </div>
+                    {/* Display nearest location and distance */}
+                    {nearestLocation && distance !== null && (
+                        <div className="mt-4 p-4 border border-gray-300 rounded">
+                            <p>Nearest Location: {nearestLocation}</p>
+                            <p>Distance: {distance.toFixed(2)} km</p>
+                        </div>
+                    )}
 
-                    <div className="flex flex-col rounded-lg border border-gray-100 px-4 py-8 text-center">
-                        <dt className="order-last text-lg font-medium text-gray-500">Total Addons</dt>
-
-                        <dd className="text-4xl font-extrabold text-blue-600 md:text-5xl">86</dd>
-                    </div>
-
-                    <div className="flex flex-col rounded-lg border border-gray-100 px-4 py-8 text-center">
-                        <dt className="order-last text-lg font-medium text-gray-500">Page Visits</dt>
-
-                        <dd className="text-4xl font-extrabold text-blue-600 md:text-5xl">86k</dd>
-                    </div>
-                </dl>
+                    {/* Display error message */}
+                    {errorMessage && (
+                        <div className="mt-4 p-4 border border-red-300 text-red-600 rounded">
+                            {errorMessage}
+                        </div>
+                    )}
+                </div>
             </div>
             <Deliverypage />
         </div>
     );
 }
-
