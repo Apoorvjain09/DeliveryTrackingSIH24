@@ -22,9 +22,9 @@ export default function HeroReact() {
   };
 
   const images = [
-    "https://images.unsplash.com/photo-1485433592409-9018e83a1f0d?q=80&w=1814&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "https://images.pexels.com/photos/27200519/pexels-photo-27200519/free-photo-of-a-person-holding-a-box-with-a-white-paper-on-top.jpeg?auto=compress&cs=tinysrgb&w=600",
     "https://plus.unsplash.com/premium_photo-1661342486992-2a08d4b466ef?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    "https://images.unsplash.com/photo-1482189349482-3defd547e0e9?q=80&w=2848&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "https://images.pexels.com/photos/6169649/pexels-photo-6169649.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
   ];
   const [orderId, setOrderId] = useState('');
 
@@ -43,9 +43,6 @@ export default function HeroReact() {
   const placeholders = [
     "What's the first rule of Delivery?",
     "Who is Owner of India Post?",
-    "Where is Andrew Laeddis Hiding?",
-    "Write a Javascript method to reverse a string",
-    "How to assemble your own PC?",
   ];
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -85,7 +82,7 @@ export default function HeroReact() {
               onSubmit={onSubmit}
             />
             <button className="px-4 py-2 backdrop-blur-sm border bg-emerald-300/10 border-emerald-500/20 text-white mx-auto text-center rounded-full relative mt-4">
-              <span>SignUp now →</span>
+              <a href="https://relevant-antelope-99.accounts.dev/sign-in?redirect_url=http%3A%2F%2Flocalhost%3A3000%2F">SignUp now →</a>
               <div className="absolute inset-x-0  h-px -bottom-px bg-gradient-to-r w-3/4 mx-auto from-transparent via-emerald-500 to-transparent" />
             </button>
           </motion.div>
@@ -353,7 +350,6 @@ export default function HeroReact() {
             </div>
           </div>
         </section>
-
         <Footer />
       </div>
     </>

@@ -55,7 +55,6 @@ const HeroReact: React.FC = () => {
         <>
             <Navbar />
             <div className="sm:min-h-[120vh] flex flex-col items-center justify-start px-1 z-10 bg-cover bg-center bg-no-repeat">
-
                 <div className="w-full h-96 mt-8">
                     <LoadScript
                         googleMapsApiKey="AIzaSyCrCtZQtI7Y-H1wAKWkuxhUg5cIFMr5K04"
@@ -77,29 +76,3 @@ const HeroReact: React.FC = () => {
 };
 
 export default HeroReact;
-
-// {/* <div className="w-full h-auto mt-8 text-center">
-//                     <h1 className="text-xl mb-4">Find the Shortest Path</h1>
-
-//                     {/* Input for Start and End Locations */}
-//                     <input
-//                         type="text"
-//                         value={startLocation}
-//                         onChange={(e) => setStartLocation(e.target.value)}
-//                         placeholder="Enter Start Location"
-//                         className="p-2 border rounded mb-2 w-1/2"
-//                     />
-//                     <input
-//                         type="text"
-//                         value={endLocation}
-//                         onChange={(e) => setEndLocation(e.target.value)}
-//                         placeholder="Enter End Location"
-//                         className="p-2 border rounded mb-4 w-1/2"
-//                     />
-//                     <button onClick={fetchDirections} className="p-2 bg-blue-500 text-white rounded">
-//                         Get Directions
-//                     </button>
-
-//                     {/* Display error message if any */}
-//                     {errorMessage && <p className="text-red-500 mt-4">{errorMessage}</p>}
-//                 </div> */}
