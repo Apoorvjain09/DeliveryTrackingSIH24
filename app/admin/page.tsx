@@ -108,82 +108,7 @@ export default function Component() {
                     </DropdownMenu>
                 </div>
             </header>
-            <main className="border mx-4 rounded-lg shadow-lg my-10 flex-1 px-4 py-6 sm:px-6">
-                <div className="max-w-4xl mx-auto grid gap-6">
 
-                    {/* Orders Section */}
-                    <div className="grid gap-4">
-                        <div className="flex items-center justify-between">
-                            <h1 className="text-2xl font-bold">Orders</h1>
-                            <Button variant="outline" size="sm">
-                                Create Order
-                            </Button>
-                        </div>
-                        <div className="bg-background rounded-lg shadow overflow-hidden">
-                            <Table>
-                                <TableHeader>
-                                    <TableRow>
-                                        <TableHead>Address</TableHead>
-                                        <TableHead>Delivery Time</TableHead>
-                                        <TableHead>Order ID</TableHead>
-                                    </TableRow>
-                                </TableHeader>
-                                <TableBody>
-                                    {orders.length > 0 ? (
-                                        orders.map((order) => (
-                                            <TableRow key={order.orderId}>
-                                                <TableCell>
-                                                    <div className="font-medium">{order.location}</div>
-                                                    <div className="text-muted-foreground text-sm">{order.productName}</div>
-                                                </TableCell>
-                                                <TableCell>
-                                                    <div className="font-medium">{order.deliveryTime}</div>
-                                                </TableCell>
-                                                <TableCell>
-                                                    <div className="font-medium">{order.orderId}</div>
-                                                </TableCell>
-                                            </TableRow>
-                                        ))
-                                    ) : (
-                                        <TableRow>
-                                            <TableCell colSpan={3} className="text-center text-muted-foreground">
-                                                Loading Orders!
-                                            </TableCell>
-                                        </TableRow>
-                                    )}
-                                </TableBody>
-                            </Table>
-                        </div>
-                    </div>
-
-                    {/* Optimal Delivery Time Section */}
-                    <div className="bg-background rounded-lg shadow p-6">
-                        <h2 className="text-xl font-bold">Optimal Delivery Time</h2>
-                        <div className="mt-4">
-                            {Object.keys(optimalDeliveryTimes).length > 0 ? (
-                                <ul className="space-y-2">
-                                    {Object.entries(optimalDeliveryTimes).map(([city, timeInMinutes]) => (
-                                        <li key={city}>
-                                            <strong>{city}:</strong> {convertMinutesToAmPm(timeInMinutes as number)}
-                                        </li>
-                                    ))}
-                                </ul>
-                            ) : (
-                                <p>No optimal delivery times available yet.</p>
-                            )}
-                        </div>
-                    </div>
-
-                    {/* Visualization Section */}
-                    {visualization && (
-                        <div className="bg-background rounded-lg shadow p-6">
-                            <h2 className="text-xl font-bold">Delivery Visualization</h2>
-                            <img src={visualization} alt="Delivery visualization" className="mt-4" />
-                        </div>
-                    )}
-
-                </div>
-            </main>
             <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
                 <div className="mx-auto max-w-3xl text-center">
                     <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">Worlds Fastest Delivery Tracking System</h2>
@@ -195,9 +120,9 @@ export default function Component() {
 
                 <dl className="mt-6 grid grid-cols-1 gap-4 sm:mt-8 sm:grid-cols-2 lg:grid-cols-4">
                     <div className="flex flex-col rounded-lg border border-gray-100 px-4 py-8 text-center">
-                        <dt className="order-last text-lg font-medium text-gray-500">Total Sales</dt>
+                        <dt className="order-last text-lg font-medium text-gray-500">Total Delivery</dt>
 
-                        <dd className="text-4xl font-extrabold text-blue-600 md:text-5xl">$4.8m</dd>
+                        <dd className="text-4xl font-extrabold text-blue-600 md:text-5xl">480+</dd>
                     </div>
 
                     <div className="flex flex-col rounded-lg border border-gray-100 px-4 py-8 text-center">
@@ -223,3 +148,4 @@ export default function Component() {
         </div>
     );
 }
+
