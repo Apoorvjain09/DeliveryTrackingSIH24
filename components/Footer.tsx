@@ -1,17 +1,17 @@
 export default function Footer() {
     return (
-        <footer className="bg-black z-[100] flex flex_row items-center justify-center" >
+        <footer className="bg-white z-[100] flex flex_row items-center justify-center text-xs" >
             <div className=" w-[50%] px-4 py-4 sm:px-6 lg:px-8">
                 <div className="flex justify-center text-teal-600">
                     <img src="https://www.sih.gov.in/img1/logo/SIH-Logo.png" alt="" className="" />
                 </div>
 
-                <p className="mx-auto mt-6 max-w-md text-center leading-relaxed text-white">
+                <p className="mx-auto mt-6 max-w-md text-center leading-relaxed text-black font-bold">
                     We Love ❤️ Smart India HackaThon'24<br />
                     Website developed and desinged by 🔥 TEAM ELITE
                 </p>
 
-                <ul className="mt-12 flex justify-center gap-6 md:gap-8 text-white">
+                <ul className="mt-12 flex justify-center gap-6 md:gap-8 text-black">
                     <li>
                         <a
                             href="#"
@@ -101,7 +101,7 @@ export default function Footer() {
                     </li>
                 </ul>
             </div>
-            <div className="text-white text-center w-[50%]">
+            {/* <div className="text-white text-center w-[50%]">
                 <img src="https://www.indiapost.gov.in/_layouts/15/images/DOP.Portal.UILayer/Telephone%20Icon.svg" alt="Phone Icon" className="mx-auto mb-4" />
                 <p className="font-bold">Toll Free Enquiry Helpline:</p>
                 <p className="text-blue-500 font-bold text-lg">18002666868</p>
@@ -112,7 +112,7 @@ export default function Footer() {
                 <a href="#" className="text-blue-500 underline">
                     Register your complaint
                 </a>
-            </div>
+            </div> */}
         </footer>
     )
 }

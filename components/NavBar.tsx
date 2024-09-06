@@ -14,7 +14,7 @@ export default function Navbar() {
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
                 <a href="https://flowbite.com/" className="flex items-center space-x-3 rtl:space-x-reverse">
                     <img src="https://www.indiapost.gov.in/_layouts/15/images/DOP.Portal.UILayer/Emblem_of_India.svg" className="h-8" alt="Flowbite Logo" />
-                    <span className="self-center text-2xl font-semibold whitespace-nowrap text-black">Team Elite</span>
+                    <span className="self-center text-2xl font-semibold whitespace-nowrap text-black">भारत <span className="text-red-600">डाक</span></span>
                 </a>
                 <button data-collapse-toggle="navbar-default" type="button" className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-default" aria-expanded="false">
                     <span className="sr-only">Open main menu</span>
@@ -34,7 +34,7 @@ export default function Navbar() {
                             <a href="/live-tracking" className="block py-2 px-3 text-gray-500 rounded hover:text-black ">Live Tracking</a>
                         </li>
                         <li>
-                            <a href="/Complaint" className="block py-2 px-3 text-gray-500 rounded hover:text-black md:p-0">Support</a>
+                            <a href="/complaint" className="block py-2 px-3 text-gray-500 rounded hover:text-black md:p-0">Support</a>
                         </li>
                         <li className="relative">
                             {!isSignedIn ? (
@@ -42,14 +42,14 @@ export default function Navbar() {
                                     onClick={toggleDropdown}
                                     className="text-black bg-white p-2 rounded-lg"
                                 >
-                                    Sign In
+                                    LogIn
                                 </button>
                             ) : (
                                 <SignOutButton />
                             )}
                             {/* Dropdown Menu */}
                             {showDropdown && (
-                                <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg">
+                                <div className="absolute z-[100] right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg">
                                     <a
                                         className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
                                     >
@@ -58,7 +58,7 @@ export default function Navbar() {
                                     <a
                                         className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
                                     >
-                                        <SignInButton>User Signup</SignInButton>
+                                        <SignInButton>User Login</SignInButton>
                                     </a>
                                 </div>
                             )}

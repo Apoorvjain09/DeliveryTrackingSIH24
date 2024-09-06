@@ -9,6 +9,8 @@ import { ResponsiveBar } from "@nivo/bar";
 import { useEffect, useState } from "react";
 import { UserButton } from "@clerk/nextjs";
 import data from "./script/delivery.json";
+import { LineChart } from "lucide-react";
+import { LineChartComponent } from "@/components/component/LineChart";
 
 // Helper function to convert minutes into AM/PM format
 function convertMinutesToAmPm(minutes: number): string {
@@ -31,7 +33,7 @@ export default function Component() {
     const [orders, setOrders] = useState<Order[]>([]);
     const [optimalDeliveryTimes, setOptimalDeliveryTimes] = useState<any>({});
     const [visualization, setVisualization] = useState<string | null>(null);
-    
+
     // Load orders from local storage
     useEffect(() => {
         const storedOrders: Order[] = JSON.parse(localStorage.getItem("orders") || "[]");
@@ -107,9 +109,9 @@ export default function Component() {
                     </DropdownMenu>
                 </div>
             </header>
-            <main className="flex-1 px-4 py-6 sm:px-6">
+            <main className="border mx-4 rounded-lg shadow-lg my-10 flex-1 px-4 py-6 sm:px-6">
                 <div className="max-w-4xl mx-auto grid gap-6">
-                    
+
                     {/* Orders Section */}
                     <div className="grid gap-4">
                         <div className="flex items-center justify-between">
@@ -183,6 +185,10 @@ export default function Component() {
 
                 </div>
             </main>
+            <div className="w-full flex shadow-lg flex-row px-6 gap-5">
+                <LineChartComponent />
+                <LineChartComponent />
+            </div>
         </div>
     );
 }
